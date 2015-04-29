@@ -12,14 +12,99 @@
 
 BOOL shouldStop;
 
-@implementation GameViewController
+@implementation GameViewController{
+    SCNNode *cam;
+    NSMutableArray *animations;
+    SCNNode *node;
+    //SCNScene *scene;
+    GameScene *scene;
+    GameCharacter *character;
+}
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
     SCNView *scnView = (SCNView *)self.view;
+    animations = [NSMutableArray array];
     
+    //scene = [SCNScene scene];//[SCNScene sceneNamed:@"art.scnassets/walking.dae"];
+    //[scene.rootNode removeAllAnimations];
+    
+    // Setup Game Scene
+    scene = [[GameScene alloc] initWithView:scnView];
+    SCNNode *cameraNode = [SCNNode node];
+    cameraNode.camera = [SCNCamera camera];
+    cameraNode.camera.zFar = 1000;
+    cameraNode.position = SCNVector3Make(0, 100, 350);
+    [scene.rootNode addChildNode:cameraNode];
+    scnView.backgroundColor = [UIColor darkGrayColor];
+    
+    // Setup Game Character
+    character = [[GameCharacter alloc] initFromScene:[SCNScene sceneNamed:@"art.scnassets/Kakashi.dae"] withName:@"SpongeBob"];
+    for(SCNNode *eachNode in character.nodes){
+        [scene.rootNode addChildNode:eachNode];
+    }
+    
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"art.scnassets/Kakashi(walking)" withExtension:@"dae"];
+    SCNSceneSource *sceneSource = [SCNSceneSource sceneSourceWithURL:url options:@{SCNSceneSourceAnimationImportPolicyKey:SCNSceneSourceAnimationImportPolicyPlayRepeatedly} ];
+    NSArray *animationIds = [sceneSource identifiersOfEntriesWithClass:[CAAnimation class]];
+    for(NSString *eachId in animationIds){
+        CAAnimation *animation = [sceneSource entryWithIdentifier:eachId withClass:[CAAnimation class]];
+        [animations addObject:animation];
+    }
+    character.walkAnimations = [NSArray arrayWithArray:animations];
+    
+    
+
+    
+//    NSURL *url = [[NSBundle mainBundle] URLForResource:@"art.scnassets/walking" withExtension:@"dae"];
+//    SCNSceneSource *sceneSource = [SCNSceneSource sceneSourceWithURL:url options:nil ];
+//    node = [sceneSource entryWithIdentifier:@"BetaHighResMeshes" withClass:[SCNNode class]];
+//    //node.scale = SCNVector3Make(4, 4, 4);
+//    //node.position = SCNVector3Make(0, 0, 4);
+//
+    
+//    scene.rootNode.scale = SCNVector3Make(scaleFactor, scaleFactor, scaleFactor);
+//    NSLog(@"%@", node);
+//    
+//    SCNNode *cameraNode = [SCNNode node];
+//    cameraNode.camera = [SCNCamera camera];
+//    cameraNode.position = SCNVector3Make(0, 20, 50);
+//    [scene.rootNode addChildNode:cameraNode];
+//    cam = cameraNode;
+//    [scene.rootNode addChildNode:node];
+//    
+//    NSArray *animationIds = [sceneSource identifiersOfEntriesWithClass:[CAAnimation class]];
+//    for(NSString *eachId in animationIds){
+//        CAAnimation *animation = [sceneSource entryWithIdentifier:eachId withClass:[CAAnimation class]];
+//        [animations addObject:animation];
+//        [node addAnimation:animation forKey:eachId];
+//    }
+    
+    scnView.scene = scene;
+    scnView.allowsCameraControl = YES;
+    scnView.showsStatistics = YES;
+    
+    
+    
+    //[SCNTransaction setAnimationDuration:5.0];
+    
+    
+    //UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(showCameraLocation)];
+    //[scnView addGestureRecognizer:tapGesture];
+    
+//    SCNScene *s = [SCNScene sceneNamed:@"art.scnassets/walking.dae"];
+//    for(SCNNode *eachChild in s.rootNode.childNodes){
+//        for(NSString *eachId in eachChild.animationKeys){
+//            NSLog(@"%@", [eachChild animationForKey:eachId]);
+//            CAAnimation *animation = [eachChild animationForKey:eachId];
+//            [scene.rootNode/*[scene.rootNode childNodeWithName:@"BetaHighResMeshes" recursively:YES]*/ addAnimation:animation forKey:eachId];
+//            //NSLog(@"SCEEENNNEEE");
+//        }
+//    }
+    
+    /*
     // Setup Game Scene
     GameScene *scene = [[GameScene alloc] initWithView:scnView];
     [scene setupCamera];
@@ -43,7 +128,7 @@ BOOL shouldStop;
     
     scnView.allowsCameraControl = YES;
     scnView.showsStatistics = YES;
-    
+    */
     
     
     /*
@@ -125,15 +210,47 @@ BOOL shouldStop;
     scnView.gestureRecognizers = gestureRecognizers;
      */
     
-    //UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
-    //[scnView addGestureRecognizer:tapGesture];
+    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
+    [scnView addGestureRecognizer:tapGesture];
+}
+
+- (void) showCameraLocation
+{
+    //CAAnimationGroup *group = animations[0];
+    
+    int i = 1;
+    for(CAAnimationGroup *group in animations){
+        for(CAAnimation *anim in [group animations]){
+            NSString *key = [NSString stringWithFormat:@"ANIM_%d", i];
+            [[scene.rootNode childNodeWithName:@"BetaHighResMeshes" recursively:YES] addAnimation:anim forKey:key];//NSLog(@"ID: %@",key);
+            //NSLog(@"GROOOUUUP");
+            i++;
+        }
+    }
+    
+    
+    SCNScene *s = [SCNScene sceneNamed:@"art.scnassets/walking.dae"];
+    for(SCNNode *eachChild in s.rootNode.childNodes){
+        for(NSString *eachId in eachChild.animationKeys){
+            NSLog(@"%@", [eachChild animationForKey:eachId]);
+            CAAnimation *animation = [eachChild animationForKey:eachId];
+            [scene.rootNode addAnimation:animation forKey:eachId];
+            //NSLog(@"SCEEENNNEEE");
+        }
+    }
 }
 
 - (void) tap
 {
-    shouldStop = !shouldStop;
-    if(!shouldStop){
-        
+    [character startWalkAnimation];
+    
+    int i = 1;
+    for(CAAnimation *animation in character.walkAnimations){
+        //if(i <= [character.walkAnimations count]*0.75){
+        NSString *key = [NSString stringWithFormat:@"WALK_ANIM_%d", i];
+        [scene.rootNode addAnimation:animation forKey:key];
+        i++;
+        //}
     }
 }
 

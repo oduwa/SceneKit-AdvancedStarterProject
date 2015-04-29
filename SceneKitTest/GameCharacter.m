@@ -25,6 +25,7 @@
         NSMutableArray *nodesMut = [NSMutableArray array];
         [nodesMut addObjectsFromArray:[scene.rootNode childNodes]];
         _nodes = [NSArray arrayWithArray:nodesMut];
+        _walkAnimations = [NSArray array];
 
         //_leftLeg = [scene.rootNode childNodeWithName:@"leg_thigh_left" recursively:YES];
         //_rightLeg = [scene.rootNode childNodeWithName:@"leg_thigh_right" recursively:YES];
@@ -62,6 +63,16 @@
             }];
         }];
     }];
+}
+
+- (void) startWalkAnimation
+{
+    int i = 1;
+    for(CAAnimation *animation in _walkAnimations){
+        NSString *key = [NSString stringWithFormat:@"WALK_ANIM_%d", i];
+        [_scene.rootNode addAnimation:animation forKey:key];
+        i++;
+    }
 }
 
 - (void) stopWalkAnimation

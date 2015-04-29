@@ -19,11 +19,15 @@
 /** Stores all the nodes associated with the model */
 @property (nonatomic, strong) NSArray *nodes;
 
+/** Stores all the walk animations associated with the model */
+@property (nonatomic, strong) NSArray *walkAnimations;
+
 /** Stores a node for the character's left leg. Can be nil if character does not have one */
 @property (nonatomic, strong) SCNNode *leftLeg;
 
 /** Stores a node for the character's right leg. Can be nil if character does not have one */
 @property (nonatomic, strong) SCNNode *rightLeg;
+
 
 /************************ SETUP ***************************/
 
@@ -54,5 +58,7 @@
  * Stops walk animation. Lowers both of the characters legs together.
  */
 - (void) stopWalkAnimation;
+
+- (void) startWalkAnimation;
 
 @end
