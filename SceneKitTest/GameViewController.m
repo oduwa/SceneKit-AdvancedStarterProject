@@ -28,9 +28,6 @@ BOOL shouldStop;
     SCNView *scnView = (SCNView *)self.view;
     animations = [NSMutableArray array];
     
-    //scene = [SCNScene scene];//[SCNScene sceneNamed:@"art.scnassets/walking.dae"];
-    //[scene.rootNode removeAllAnimations];
-    
     // Setup Game Scene
     scene = [[GameScene alloc] initWithView:scnView];
     SCNNode *cameraNode = [SCNNode node];
@@ -83,7 +80,7 @@ BOOL shouldStop;
 //    }
     
     scnView.scene = scene;
-    scnView.allowsCameraControl = YES;
+    //scnView.allowsCameraControl = YES;
     scnView.showsStatistics = YES;
     
     
@@ -242,41 +239,9 @@ BOOL shouldStop;
 
 - (void) tap
 {
-    [character startWalkAnimation];
-    
-    int i = 1;
-    for(CAAnimation *animation in character.walkAnimations){
-        //if(i <= [character.walkAnimations count]*0.75){
-        NSString *key = [NSString stringWithFormat:@"WALK_ANIM_%d", i];
-        [scene.rootNode addAnimation:animation forKey:key];
-        i++;
-        //}
-    }
+    [character startWalkAnimationInScene:scene];
 }
 
-- (void) walkAnimationLeftLeg:(SCNNode *)leftLeg andRightLeg:(SCNNode *)rightLeg withSpeed:(CGFloat) speed
-{
-    // LEFT UP
-    [leftLeg runAction:[SCNAction rotateByX:0 y:0.79 z:0 duration:speed] completionHandler:^{
-        // LEFT DOWN
-        [leftLeg runAction:[SCNAction rotateByX:0 y:-0.79 z:0 duration:speed] completionHandler:^{
-            // RIGHT UP
-            [rightLeg runAction:[SCNAction rotateByX:0 y:0.79 z:0 duration:speed] completionHandler:^{
-                // RIGHT DOWN
-                [rightLeg runAction:[SCNAction rotateByX:0 y:-0.79 z:0 duration:speed] completionHandler:^{
-                    if(!shouldStop){
-                        [self walkAnimationLeftLeg:leftLeg andRightLeg:rightLeg withSpeed:speed];
-                    }
-                }];
-            }];
-        }];
-    }];
-}
-
-- (void) stopWalkAnimation
-{
-    shouldStop = YES;
-}
 
 - (void) handleTap:(UIGestureRecognizer*)gestureRecognize
 {

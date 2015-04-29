@@ -65,12 +65,12 @@
     }];
 }
 
-- (void) startWalkAnimation
+- (void) startWalkAnimationInScene:(SCNScene *)gameScene
 {
     int i = 1;
     for(CAAnimation *animation in _walkAnimations){
         NSString *key = [NSString stringWithFormat:@"WALK_ANIM_%d", i];
-        [_scene.rootNode addAnimation:animation forKey:key];
+        [gameScene.rootNode addAnimation:animation forKey:key];
         i++;
     }
 }

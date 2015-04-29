@@ -59,6 +59,6 @@
  */
 - (void) stopWalkAnimation;
 
-- (void) startWalkAnimation;
+- (void) startWalkAnimationInScene:(SCNScene *)gameScene;
 
 @end
