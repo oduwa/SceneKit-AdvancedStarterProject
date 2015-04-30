@@ -9,6 +9,7 @@
 #import "GameViewController.h"
 #import "GameCharacter.h"
 #import "GameScene.h"
+#import <SpriteKit/SpriteKit.h>
 
 BOOL shouldStop;
 
@@ -19,6 +20,9 @@ BOOL shouldStop;
     //SCNScene *scene;
     GameScene *scene;
     GameCharacter *character;
+    
+    SKScene *overlay;
+    SKSpriteNode *walkAnimButton;
 }
 
 #pragma mark - View Lifecycle
@@ -50,15 +54,18 @@ BOOL shouldStop;
 
     // Reset character to idle pose (rather than T-pose)
     [character startIdleAnimationInScene:scene];
-
     
     scnView.scene = scene;
     scnView.allowsCameraControl = YES;
     scnView.showsStatistics = YES;
-
+    
+    scnView.delegate = self;
+    
     
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
-    [scnView addGestureRecognizer:tapGesture];
+    //[scnView addGestureRecognizer:tapGesture];
+    
+    [self setupHUD];
     
 //    // retrieve the ship node
 //    SCNNode *ship = [scene.rootNode childNodeWithName:@"ship" recursively:YES];
@@ -72,6 +79,7 @@ BOOL shouldStop;
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
 }
+
 
 #pragma mark - Setup Helpers
 
@@ -152,6 +160,23 @@ BOOL shouldStop;
     [scene.rootNode addChildNode:ambientLightNode];
 }
 
+- (void) setupHUD
+{
+    CGSize screenSize = [[UIScreen mainScreen] bounds].size;
+    SCNView *scnView = (SCNView *)self.view;
+    overlay = [[SKScene alloc] initWithSize:scnView.bounds.size];
+    overlay.scaleMode = SKSceneScaleModeAspectFill;
+    
+    walkAnimButton = [SKSpriteNode spriteNodeWithImageNamed:@"walking"];
+    walkAnimButton.anchorPoint = CGPointMake(0.5, 0.5);
+    walkAnimButton.size = CGSizeMake(32, 32);
+    walkAnimButton.position = CGPointMake(screenSize.width-walkAnimButton.size.width, screenSize.height-walkAnimButton.size.height);
+    walkAnimButton.name = @"WalkAnimationButton";
+    [overlay addChild:walkAnimButton];
+    scnView.overlaySKScene = overlay;
+
+}
+
 
 #pragma mark - Tap Selectors
 
@@ -164,6 +189,7 @@ BOOL shouldStop;
         [character stopWalkAnimationInScene:scene];
     }
     shouldStop = !shouldStop;
+    //character.characterNode.position = SCNVector3Make(character.characterNode.position.x, character.characterNode.position.y+10, character.characterNode.position.z);
 }
 
 
@@ -204,6 +230,31 @@ BOOL shouldStop;
     }
 }
 
+
+#pragma SCNRenderer Delegate
+
+- (void)renderer:(id<SCNSceneRenderer>)aRenderer
+    updateAtTime:(NSTimeInterval)time
+{
+    
+}
+
+
+#pragma Touch Delegate
+
+- (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
+{
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInNode:overlay];
+    SKNode *touchedNode = [overlay nodeAtPoint:location];
+    
+    
+    if ([touchedNode.name isEqualToString:@"WalkAnimationButton"]) {
+        [self tap];
+    }
+}
+
+
 #pragma mark - Orientation and Status Bar
 
 - (BOOL)shouldAutorotate
@@ -223,6 +274,26 @@ BOOL shouldStop;
         return UIInterfaceOrientationMaskAll;
     }
 }
+
+- (void)viewWillTransitionToSize:(CGSize)size
+       withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator
+{
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+    
+    [coordinator animateAlongsideTransition:nil completion:^(id<UIViewControllerTransitionCoordinatorContext> context) {
+        if(size.width > size.height){
+            // Landscape
+        }
+        else{
+            // Portrait
+        }
+        
+        [overlay removeAllChildren];
+        [self setupHUD];
+    }];
+    
+}
+
 
 
 
