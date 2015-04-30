@@ -21,6 +21,8 @@ BOOL shouldStop;
     GameCharacter *character;
 }
 
+#pragma mark - View Lifecycle
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -30,30 +32,23 @@ BOOL shouldStop;
     
     // Setup Game Scene
     scene = [[GameScene alloc] initWithView:scnView];
-    SCNNode *cameraNode = [SCNNode node];
-    cameraNode.camera = [SCNCamera camera];
-    cameraNode.camera.zFar = 1000;
-    cameraNode.position = SCNVector3Make(0, 100, 350);
-    [scene.rootNode addChildNode:cameraNode];
     scnView.backgroundColor = [UIColor darkGrayColor];
+    [self setupCamera];
+    
+    // create and add a light to the scene
+    [self setupPointLight];
+    
+    // create and add an ambient light to the scene
+    [self setupAmbientLight];
     
     // Setup Game Character
-    character = [[GameCharacter alloc] initFromScene:[SCNScene sceneNamed:@"art.scnassets/Kakashi.dae"] withName:@"SpongeBob"];
-    for(SCNNode *eachNode in character.nodes){
-        [scene.rootNode addChildNode:eachNode];
-    }
-    
-    NSURL *url = [[NSBundle mainBundle] URLForResource:@"art.scnassets/Kakashi(walking)" withExtension:@"dae"];
-    SCNSceneSource *sceneSource = [SCNSceneSource sceneSourceWithURL:url options:@{SCNSceneSourceAnimationImportPolicyKey:SCNSceneSourceAnimationImportPolicyPlayRepeatedly} ];
-    NSArray *animationIds = [sceneSource identifiersOfEntriesWithClass:[CAAnimation class]];
-    for(NSString *eachId in animationIds){
-        CAAnimation *animation = [sceneSource entryWithIdentifier:eachId withClass:[CAAnimation class]];
-        [animations addObject:animation];
-    }
-    character.walkAnimations = [NSArray arrayWithArray:animations];
+    [self setupCharacter];
     
     
+    // Setup Floor
+    [self setupFloor];
 
+    [character startIdleAnimationInScene:scene];
     
 //    NSURL *url = [[NSBundle mainBundle] URLForResource:@"art.scnassets/walking" withExtension:@"dae"];
 //    SCNSceneSource *sceneSource = [SCNSceneSource sceneSourceWithURL:url options:nil ];
@@ -211,35 +206,106 @@ BOOL shouldStop;
     [scnView addGestureRecognizer:tapGesture];
 }
 
-- (void) showCameraLocation
+- (void)didReceiveMemoryWarning
 {
-    //CAAnimationGroup *group = animations[0];
-    
-    int i = 1;
-    for(CAAnimationGroup *group in animations){
-        for(CAAnimation *anim in [group animations]){
-            NSString *key = [NSString stringWithFormat:@"ANIM_%d", i];
-            [[scene.rootNode childNodeWithName:@"BetaHighResMeshes" recursively:YES] addAnimation:anim forKey:key];//NSLog(@"ID: %@",key);
-            //NSLog(@"GROOOUUUP");
-            i++;
-        }
-    }
-    
-    
-    SCNScene *s = [SCNScene sceneNamed:@"art.scnassets/walking.dae"];
-    for(SCNNode *eachChild in s.rootNode.childNodes){
-        for(NSString *eachId in eachChild.animationKeys){
-            NSLog(@"%@", [eachChild animationForKey:eachId]);
-            CAAnimation *animation = [eachChild animationForKey:eachId];
-            [scene.rootNode addAnimation:animation forKey:eachId];
-            //NSLog(@"SCEEENNNEEE");
-        }
-    }
+    [super didReceiveMemoryWarning];
+    // Release any cached data, images, etc that aren't in use.
 }
+
+#pragma mark - Setup Helpers
+
+- (void) setupCharacter
+{
+    // Create Character and add to scene
+    character = [[GameCharacter alloc] initFromScene:[SCNScene sceneNamed:@"art.scnassets/Kakashi.dae"] withName:@"SpongeBob"];
+    //character = [[GameCharacter alloc] initFromScene:[SCNScene sceneNamed:@"Sasuke.dae"] withName:@""];
+    for(SCNNode *eachNode in character.nodes){
+        [scene.rootNode addChildNode:eachNode];
+    }
+    
+    
+    // Get Walk Animations
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"art.scnassets/Kakashi(walking)" withExtension:@"dae"];
+    SCNSceneSource *sceneSource = [SCNSceneSource sceneSourceWithURL:url options:@{SCNSceneSourceAnimationImportPolicyKey:SCNSceneSourceAnimationImportPolicyPlayRepeatedly} ];
+    NSArray *animationIds = [sceneSource identifiersOfEntriesWithClass:[CAAnimation class]];
+    for(NSString *eachId in animationIds){
+        CAAnimation *animation = [sceneSource entryWithIdentifier:eachId withClass:[CAAnimation class]];
+        [animations addObject:animation];
+    }
+    character.walkAnimations = [NSArray arrayWithArray:animations];
+    
+    
+    // Get Idle Animations
+    animations = [NSMutableArray array];
+    NSURL *url2 = [[NSBundle mainBundle] URLForResource:@"art.scnassets/Kakashi(idle)" withExtension:@"dae"];
+    SCNSceneSource *sceneSource2 = [SCNSceneSource sceneSourceWithURL:url2 options:@{SCNSceneSourceAnimationImportPolicyKey:SCNSceneSourceAnimationImportPolicyPlayRepeatedly} ];
+    NSArray *animationIds2 = [sceneSource2 identifiersOfEntriesWithClass:[CAAnimation class]];
+    for(NSString *eachId in animationIds2){
+        CAAnimation *animation = [sceneSource2 entryWithIdentifier:eachId withClass:[CAAnimation class]];
+        [animations addObject:animation];
+    }
+    character.idleAnimations = [NSArray arrayWithArray:animations];
+}
+
+- (void) setupFloor
+{
+    SCNFloor *floor = [SCNFloor new];
+    //floor.reflectivity = 0.0;
+    
+    SCNNode *floorNode = [SCNNode new];
+    floorNode.geometry = floor;
+    
+    SCNMaterial *floorMaterial = [SCNMaterial new];
+    floorMaterial.litPerPixel = NO;
+    floorMaterial.diffuse.contents = [UIImage imageNamed:@"grass.jpg"];
+    floorMaterial.diffuse.wrapS = SCNWrapModeRepeat;
+    floorMaterial.diffuse.wrapT = SCNWrapModeRepeat;
+    
+    floor.materials = @[floorMaterial];
+    
+    [scene.rootNode addChildNode:floorNode];
+    
+}
+
+- (void) setupCamera
+{
+    SCNNode *cameraNode = [SCNNode node];
+    cameraNode.camera = [SCNCamera camera];
+    cameraNode.camera.zFar = 1000;
+    cameraNode.position = SCNVector3Make(0, 100, 350);
+    [scene.rootNode addChildNode:cameraNode];
+}
+
+- (void) setupPointLight
+{
+    SCNNode *lightNode = [SCNNode node];
+    lightNode.light = [SCNLight light];
+    lightNode.light.type = SCNLightTypeOmni;
+    lightNode.position = SCNVector3Make(0, 200, 400);
+    [scene.rootNode addChildNode:lightNode];
+}
+
+- (void) setupAmbientLight
+{
+    SCNNode *ambientLightNode = [SCNNode node];
+    ambientLightNode.light = [SCNLight light];
+    ambientLightNode.light.type = SCNLightTypeAmbient;
+    ambientLightNode.light.color = [UIColor darkGrayColor];
+    [scene.rootNode addChildNode:ambientLightNode];
+}
+
+
+#pragma mark - Tap Selectors
 
 - (void) tap
 {
-    [character startWalkAnimationInScene:scene];
+    if(!shouldStop){
+        [character startWalkAnimationInScene:scene];
+    }
+    else{
+        [character stopWalkAnimationInScene:scene];
+    }
+    shouldStop = !shouldStop;
 }
 
 
@@ -280,6 +346,8 @@ BOOL shouldStop;
     }
 }
 
+#pragma mark - Orientation and Status Bar
+
 - (BOOL)shouldAutorotate
 {
     return YES;
@@ -298,10 +366,6 @@ BOOL shouldStop;
     }
 }
 
-- (void)didReceiveMemoryWarning
-{
-    [super didReceiveMemoryWarning];
-    // Release any cached data, images, etc that aren't in use.
-}
+
 
 @end

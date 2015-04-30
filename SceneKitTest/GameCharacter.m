@@ -14,6 +14,8 @@
 
 @implementation GameCharacter
 
+#pragma mark - Init
+
 - (id) initFromScene:(SCNScene *)scene withName:(NSString *)name
 {
     self = [self init];
@@ -26,6 +28,7 @@
         [nodesMut addObjectsFromArray:[scene.rootNode childNodes]];
         _nodes = [NSArray arrayWithArray:nodesMut];
         _walkAnimations = [NSArray array];
+        _idleAnimations = [NSArray array];
 
         //_leftLeg = [scene.rootNode childNodeWithName:@"leg_thigh_left" recursively:YES];
         //_rightLeg = [scene.rootNode childNodeWithName:@"leg_thigh_right" recursively:YES];
@@ -33,6 +36,54 @@
     
     return self;
 }
+
+
+#pragma mark - Walk Animations
+
+- (void) startWalkAnimationInScene:(SCNScene *)gameScene
+{
+    int i = 1;
+    for(CAAnimation *animation in _walkAnimations){
+        NSString *key = [NSString stringWithFormat:@"WALK_ANIM_%d", i];
+        [gameScene.rootNode addAnimation:animation forKey:key];
+        i++;
+    }
+}
+
+- (void) stopWalkAnimationInScene:(SCNScene *)gameScene
+{
+    for(int i = 0; i < [_walkAnimations count]; i++){
+        NSString *key = [NSString stringWithFormat:@"WALK_ANIM_%d", i+1];
+        [gameScene.rootNode removeAnimationForKey:key];
+    }
+}
+
+
+#pragma mark - Idle Animations
+
+- (void) startIdleAnimationInScene:(SCNScene *)gameScene
+{
+    int i = 1;
+    for(CAAnimation *animation in _idleAnimations){
+        NSString *key = [NSString stringWithFormat:@"IDLE_ANIM_%d", i];
+        [gameScene.rootNode addAnimation:animation forKey:key];
+        i++;
+    }
+}
+
+- (void) stopIdleAnimationInScene:(SCNScene *)gameScene
+{
+    for(int i = 0; i < [_idleAnimations count]; i++){
+        NSString *key = [NSString stringWithFormat:@"IDLE_ANIM_%d", i+1];
+        [gameScene.rootNode removeAnimationForKey:key];
+    }
+}
+
+
+
+
+
+#pragma mark - Old Programmatic Animations for SpongeBob model
 
 - (void) setupLimbsWithNameForLeftLeg:(NSString *)leftLegName nameForRightLeg:(NSString *)rightLegName
 {
@@ -63,16 +114,6 @@
             }];
         }];
     }];
-}
-
-- (void) startWalkAnimationInScene:(SCNScene *)gameScene
-{
-    int i = 1;
-    for(CAAnimation *animation in _walkAnimations){
-        NSString *key = [NSString stringWithFormat:@"WALK_ANIM_%d", i];
-        [gameScene.rootNode addAnimation:animation forKey:key];
-        i++;
-    }
 }
 
 - (void) stopWalkAnimation

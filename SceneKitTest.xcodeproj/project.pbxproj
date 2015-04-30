@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C8739481AF15F8A00316662 /* Sasuke.dae in Resources */ = {isa = PBXBuildFile; fileRef = 4C8739471AF15F8A00316662 /* Sasuke.dae */; };
+		4C87394D1AF15F9200316662 /* ntxr000.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C87394A1AF15F9200316662 /* ntxr000.png */; };
+		4C87394E1AF15F9200316662 /* ntxr002.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C87394B1AF15F9200316662 /* ntxr002.png */; };
+		4C87394F1AF15F9200316662 /* rinnegan.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C87394C1AF15F9200316662 /* rinnegan.png */; };
 		4CC2706C1AEEE17500873BF8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC2706B1AEEE17500873BF8 /* main.m */; };
 		4CC2706F1AEEE17500873BF8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC2706E1AEEE17500873BF8 /* AppDelegate.m */; };
 		4CC270711AEEE17500873BF8 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CC270701AEEE17500873BF8 /* art.scnassets */; };
@@ -30,6 +34,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C8739471AF15F8A00316662 /* Sasuke.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Sasuke.dae; path = Resources/Models/Sasuke.dae; sourceTree = "<group>"; };
+		4C87394A1AF15F9200316662 /* ntxr000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ntxr000.png; path = Resources/Models/textures/ntxr000.png; sourceTree = "<group>"; };
+		4C87394B1AF15F9200316662 /* ntxr002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ntxr002.png; path = Resources/Models/textures/ntxr002.png; sourceTree = "<group>"; };
+		4C87394C1AF15F9200316662 /* rinnegan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rinnegan.png; path = Resources/Models/textures/rinnegan.png; sourceTree = "<group>"; };
 		4CC270661AEEE17500873BF8 /* SceneKitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SceneKitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CC2706A1AEEE17500873BF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CC2706B1AEEE17500873BF8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -68,6 +76,34 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C8739451AF15F4C00316662 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				4C8739461AF15F5300316662 /* Models */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		4C8739461AF15F5300316662 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				4C8739471AF15F8A00316662 /* Sasuke.dae */,
+				4C87394A1AF15F9200316662 /* ntxr000.png */,
+				4C87394B1AF15F9200316662 /* ntxr002.png */,
+				4C87394C1AF15F9200316662 /* rinnegan.png */,
+				4C8739491AF15F9200316662 /* textures */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		4C8739491AF15F9200316662 /* textures */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = textures;
+			path = Resources/Models/textures;
+			sourceTree = "<group>";
+		};
 		4CC2705D1AEEE17500873BF8 = {
 			isa = PBXGroup;
 			children = (
@@ -109,6 +145,7 @@
 		4CC270691AEEE17500873BF8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4C8739451AF15F4C00316662 /* Resources */,
 				4CC2706A1AEEE17500873BF8 /* Info.plist */,
 				4CC2706B1AEEE17500873BF8 /* main.m */,
 			);
@@ -212,8 +249,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4C87394E1AF15F9200316662 /* ntxr002.png in Resources */,
+				4C87394F1AF15F9200316662 /* rinnegan.png in Resources */,
 				4CC2707C1AEEE17500873BF8 /* LaunchScreen.xib in Resources */,
 				4CC270791AEEE17500873BF8 /* Images.xcassets in Resources */,
+				4C87394D1AF15F9200316662 /* ntxr000.png in Resources */,
+				4C8739481AF15F8A00316662 /* Sasuke.dae in Resources */,
 				4CC270711AEEE17500873BF8 /* art.scnassets in Resources */,
 				4CC270771AEEE17500873BF8 /* Main.storyboard in Resources */,
 			);
@@ -432,6 +473,7 @@
 				4CC2708D1AEEE17500873BF8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		4CC2708E1AEEE17500873BF8 /* Build configuration list for PBXNativeTarget "SceneKitTestTests" */ = {
 			isa = XCConfigurationList;
@@ -440,6 +482,7 @@
 				4CC270901AEEE17500873BF8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

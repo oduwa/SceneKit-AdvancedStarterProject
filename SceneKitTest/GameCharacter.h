@@ -22,6 +22,9 @@
 /** Stores all the walk animations associated with the model */
 @property (nonatomic, strong) NSArray *walkAnimations;
 
+/** Stores all the idle animations associated with the model */
+@property (nonatomic, strong) NSArray *idleAnimations;
+
 /** Stores a node for the character's left leg. Can be nil if character does not have one */
 @property (nonatomic, strong) SCNNode *leftLeg;
 
@@ -59,6 +62,32 @@
  */
 - (void) stopWalkAnimation;
 
+
+/**
+ * Starts walk animation for the calling GameCharacter that is within a specified scene.
+ * @param An instance of type SCNScene (preferably GameScene) that contains the character.
+ */
 - (void) startWalkAnimationInScene:(SCNScene *)gameScene;
+
+
+/**
+ * Stops walk animation for the calling GameCharacter that is within a specified scene.
+ * @param An instance of type SCNScene (preferably GameScene) that contains the character.
+ */
+- (void) stopWalkAnimationInScene:(SCNScene *)gameScene;
+
+
+/**
+ * Starts idle animation for the calling GameCharacter that is within a specified scene.
+ * @param An instance of type SCNScene (preferably GameScene) that contains the character.
+ */
+- (void) startIdleAnimationInScene:(SCNScene *)gameScene;
+
+
+/**
+ * Stops idle animationw for the calling GameCharacter that is within a specified scene.
+ * @param An instance of type SCNScene (preferably GameScene) that contains the character.
+ */
+- (void) stopIdleAnimationInScene:(SCNScene *)gameScene;
 
 @end
