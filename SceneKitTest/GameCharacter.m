@@ -22,16 +22,18 @@
     
     if(self){
         _scene = scene;
-        _characterNode = [scene.rootNode childNodeWithName:name recursively:YES];
-
         NSMutableArray *nodesMut = [NSMutableArray array];
         [nodesMut addObjectsFromArray:[scene.rootNode childNodes]];
         _nodes = [NSArray arrayWithArray:nodesMut];
         _walkAnimations = [NSArray array];
         _idleAnimations = [NSArray array];
 
-        //_leftLeg = [scene.rootNode childNodeWithName:@"leg_thigh_left" recursively:YES];
-        //_rightLeg = [scene.rootNode childNodeWithName:@"leg_thigh_right" recursively:YES];
+        /* Store character data */
+        _characterNode = [SCNNode new];
+        for(SCNNode *eachNode in _nodes){
+            eachNode.name = @"pokken";
+            [_characterNode addChildNode:eachNode];
+        }
     }
     
     return self;
