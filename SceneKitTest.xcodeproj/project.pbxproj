@@ -20,6 +20,11 @@
 		4C5D9ADF1AF29326000A8095 /* sun1_top.bmp in Resources */ = {isa = PBXBuildFile; fileRef = 4C5D9AD91AF29326000A8095 /* sun1_top.bmp */; };
 		4C5D9AE31AF2D39B000A8095 /* walking.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5D9AE11AF2D39B000A8095 /* walking.png */; };
 		4C5D9AE41AF2D39B000A8095 /* walking@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5D9AE21AF2D39B000A8095 /* walking@2x.png */; };
+		4C5D9AE71AF2E3D4000A8095 /* dpad.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5D9AE51AF2E3D4000A8095 /* dpad.png */; };
+		4C5D9AE81AF2E3D4000A8095 /* joystick.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5D9AE61AF2E3D4000A8095 /* joystick.png */; };
+		4C5D9AEC1AF2E420000A8095 /* Joystick.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5D9AEB1AF2E420000A8095 /* Joystick.m */; };
+		4C5D9AEF1AF2E5B2000A8095 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5D9AED1AF2E5B2000A8095 /* camera.png */; };
+		4C5D9AF01AF2E5B2000A8095 /* camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5D9AEE1AF2E5B2000A8095 /* camera@2x.png */; };
 		4C8739481AF15F8A00316662 /* Sasuke.dae in Resources */ = {isa = PBXBuildFile; fileRef = 4C8739471AF15F8A00316662 /* Sasuke.dae */; };
 		4C87394D1AF15F9200316662 /* ntxr000.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C87394A1AF15F9200316662 /* ntxr000.png */; };
 		4C87394E1AF15F9200316662 /* ntxr002.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C87394B1AF15F9200316662 /* ntxr002.png */; };
@@ -60,6 +65,12 @@
 		4C5D9AD91AF29326000A8095 /* sun1_top.bmp */ = {isa = PBXFileReference; lastKnownFileType = image.bmp; path = sun1_top.bmp; sourceTree = "<group>"; };
 		4C5D9AE11AF2D39B000A8095 /* walking.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = walking.png; sourceTree = "<group>"; };
 		4C5D9AE21AF2D39B000A8095 /* walking@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "walking@2x.png"; sourceTree = "<group>"; };
+		4C5D9AE51AF2E3D4000A8095 /* dpad.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dpad.png; sourceTree = "<group>"; };
+		4C5D9AE61AF2E3D4000A8095 /* joystick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = joystick.png; sourceTree = "<group>"; };
+		4C5D9AEA1AF2E420000A8095 /* Joystick.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Joystick.h; sourceTree = "<group>"; };
+		4C5D9AEB1AF2E420000A8095 /* Joystick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Joystick.m; sourceTree = "<group>"; };
+		4C5D9AED1AF2E5B2000A8095 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
+		4C5D9AEE1AF2E5B2000A8095 /* camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera@2x.png"; sourceTree = "<group>"; };
 		4C8739471AF15F8A00316662 /* Sasuke.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Sasuke.dae; path = Resources/Models/Sasuke.dae; sourceTree = "<group>"; };
 		4C87394A1AF15F9200316662 /* ntxr000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ntxr000.png; path = Resources/Models/textures/ntxr000.png; sourceTree = "<group>"; };
 		4C87394B1AF15F9200316662 /* ntxr002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ntxr002.png; path = Resources/Models/textures/ntxr002.png; sourceTree = "<group>"; };
@@ -142,9 +153,22 @@
 			children = (
 				4C5D9AE11AF2D39B000A8095 /* walking.png */,
 				4C5D9AE21AF2D39B000A8095 /* walking@2x.png */,
+				4C5D9AE51AF2E3D4000A8095 /* dpad.png */,
+				4C5D9AE61AF2E3D4000A8095 /* joystick.png */,
+				4C5D9AED1AF2E5B2000A8095 /* camera.png */,
+				4C5D9AEE1AF2E5B2000A8095 /* camera@2x.png */,
 			);
 			name = Images;
 			path = Resources/Images;
+			sourceTree = "<group>";
+		};
+		4C5D9AE91AF2E420000A8095 /* Joystick */ = {
+			isa = PBXGroup;
+			children = (
+				4C5D9AEA1AF2E420000A8095 /* Joystick.h */,
+				4C5D9AEB1AF2E420000A8095 /* Joystick.m */,
+			);
+			path = Joystick;
 			sourceTree = "<group>";
 		};
 		4C8739451AF15F4C00316662 /* Resources */ = {
@@ -218,6 +242,7 @@
 		4CC270691AEEE17500873BF8 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				4C5D9AE91AF2E420000A8095 /* Joystick */,
 				4C8739451AF15F4C00316662 /* Resources */,
 				4CC2706A1AEEE17500873BF8 /* Info.plist */,
 				4CC2706B1AEEE17500873BF8 /* main.m */,
@@ -328,6 +353,7 @@
 				4C5D9ADE1AF29326000A8095 /* sun1_right.bmp in Resources */,
 				4CC2707C1AEEE17500873BF8 /* LaunchScreen.xib in Resources */,
 				4CC270791AEEE17500873BF8 /* Images.xcassets in Resources */,
+				4C5D9AE81AF2E3D4000A8095 /* joystick.png in Resources */,
 				4C87394D1AF15F9200316662 /* ntxr000.png in Resources */,
 				4C5D9AD01AF28FB3000A8095 /* bluefreeze_left.jpg in Resources */,
 				4C8739481AF15F8A00316662 /* Sasuke.dae in Resources */,
@@ -336,12 +362,15 @@
 				4C5D9AE31AF2D39B000A8095 /* walking.png in Resources */,
 				4C5D9ACE1AF28FB3000A8095 /* bluefreeze_back.jpg in Resources */,
 				4C5D9ADC1AF29326000A8095 /* sun1_front.bmp in Resources */,
+				4C5D9AE71AF2E3D4000A8095 /* dpad.png in Resources */,
 				4C5D9AE41AF2D39B000A8095 /* walking@2x.png in Resources */,
 				4C5D9ADD1AF29326000A8095 /* sun1_left.bmp in Resources */,
 				4C5D9ADB1AF29326000A8095 /* sun1_bottom.bmp in Resources */,
 				4CC270711AEEE17500873BF8 /* art.scnassets in Resources */,
 				4C5D9ADA1AF29326000A8095 /* sun1_back.bmp in Resources */,
+				4C5D9AF01AF2E5B2000A8095 /* camera@2x.png in Resources */,
 				4C5D9AD21AF28FB3000A8095 /* bluefreeze_top.jpg in Resources */,
+				4C5D9AEF1AF2E5B2000A8095 /* camera.png in Resources */,
 				4CC270771AEEE17500873BF8 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -361,6 +390,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4CC2706F1AEEE17500873BF8 /* AppDelegate.m in Sources */,
+				4C5D9AEC1AF2E420000A8095 /* Joystick.m in Sources */,
 				4CC270961AEEECB000873BF8 /* GameCharacter.m in Sources */,
 				4CC270991AEEF54E00873BF8 /* GameScene.m in Sources */,
 				4CC270741AEEE17500873BF8 /* GameViewController.m in Sources */,

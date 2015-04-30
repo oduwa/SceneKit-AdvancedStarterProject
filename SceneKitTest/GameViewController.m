@@ -9,12 +9,13 @@
 #import "GameViewController.h"
 #import "GameCharacter.h"
 #import "GameScene.h"
+#import "Joystick.h"
 #import <SpriteKit/SpriteKit.h>
 
 BOOL shouldStop;
 
 @implementation GameViewController{
-    SCNNode *cam;
+    SCNNode *cameraNode;
     NSMutableArray *animations;
     SCNNode *node;
     //SCNScene *scene;
@@ -22,7 +23,11 @@ BOOL shouldStop;
     GameCharacter *character;
     
     SKScene *overlay;
+    Joystick *movementJoystick;
     SKSpriteNode *walkAnimButton;
+    SKSpriteNode *cameraButton;
+    
+    SCNVector3 forwardDirectionVector;
 }
 
 #pragma mark - View Lifecycle
@@ -61,7 +66,7 @@ BOOL shouldStop;
     
     scnView.delegate = self;
     
-    
+    NSLog(@"%f", cosf(90));
     UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
     //[scnView addGestureRecognizer:tapGesture];
     
@@ -135,7 +140,7 @@ BOOL shouldStop;
 
 - (void) setupCamera
 {
-    SCNNode *cameraNode = [SCNNode node];
+    cameraNode = [SCNNode node];
     cameraNode.camera = [SCNCamera camera];
     cameraNode.camera.zFar = 1000;
     cameraNode.position = SCNVector3Make(0, 100, 350);
@@ -162,19 +167,36 @@ BOOL shouldStop;
 
 - (void) setupHUD
 {
+    /* Create overlay SKScene for 3D scene */
     CGSize screenSize = [[UIScreen mainScreen] bounds].size;
     SCNView *scnView = (SCNView *)self.view;
     overlay = [[SKScene alloc] initWithSize:scnView.bounds.size];
     overlay.scaleMode = SKSceneScaleModeAspectFill;
+    scnView.overlaySKScene = overlay;
     
+    /* Create button for controlling walk animation */
     walkAnimButton = [SKSpriteNode spriteNodeWithImageNamed:@"walking"];
     walkAnimButton.anchorPoint = CGPointMake(0.5, 0.5);
     walkAnimButton.size = CGSizeMake(32, 32);
     walkAnimButton.position = CGPointMake(screenSize.width-walkAnimButton.size.width, screenSize.height-walkAnimButton.size.height);
     walkAnimButton.name = @"WalkAnimationButton";
     [overlay addChild:walkAnimButton];
-    scnView.overlaySKScene = overlay;
+    
+    /* Create button for toggling camera control */
+    cameraButton = [SKSpriteNode spriteNodeWithImageNamed:@"camera"];
+    walkAnimButton.anchorPoint = CGPointMake(0.5, 0.5);
+    cameraButton.size = CGSizeMake(32, 32);
+    cameraButton.position = CGPointMake(screenSize.width-walkAnimButton.size.width-15-cameraButton.size.width, screenSize.height-cameraButton.size.height);
+    cameraButton.name = @"CameraButton";
+    [overlay addChild:cameraButton];
 
+    /* Create jostick */
+    SKSpriteNode *jsThumb = [SKSpriteNode spriteNodeWithImageNamed:@"joystick"];
+    SKSpriteNode *jsBackdrop = [SKSpriteNode spriteNodeWithImageNamed:@"dpad"];
+    movementJoystick = [Joystick joystickWithThumb:jsThumb andBackdrop:jsBackdrop];
+    movementJoystick.position = CGPointMake(jsBackdrop.size.width/2, jsBackdrop.size.height/2);
+    [overlay addChild:movementJoystick];
+    
 }
 
 
@@ -231,16 +253,43 @@ BOOL shouldStop;
 }
 
 
-#pragma SCNRenderer Delegate
+#pragma mark - SCNRenderer Delegate
 
 - (void)renderer:(id<SCNSceneRenderer>)aRenderer
     updateAtTime:(NSTimeInterval)time
 {
-    
+    if(movementJoystick.velocity.x != 0 || movementJoystick.velocity.y != 0){
+        float angleInDegrees = movementJoystick.angularVelocity*57.3;
+        
+        /* thumb is in top left region */
+        if(angleInDegrees >= 0 && angleInDegrees <= 90){
+            NSLog(@"TL");
+        }
+        /* thumb is in bottom left region */
+        else if(angleInDegrees > 90 && angleInDegrees <= 179){
+            NSLog(@"BL");
+        }
+        /* thumb is in top right region */
+        else if(angleInDegrees < 0 && angleInDegrees >= -90){
+            NSLog(@"TR");
+        }
+        /* thumb is in bottom right region */
+        else if(angleInDegrees < -90 && angleInDegrees >= -180){
+            NSLog(@"BR");
+        }
+        
+        cameraNode.rotation = SCNVector4Make(0, 1, 0, movementJoystick.angularVelocity);
+        
+        // Create a vector to move forward in z direction
+        forwardDirectionVector = SCNVector3Make(0, 0, 1);
+        //forwardDirectionVector = forwardDirectionVector.
+        
+        //NSLog(@"[%f]", );
+    }
 }
 
 
-#pragma Touch Delegate
+#pragma mark - Touch Delegate
 
 - (void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
@@ -249,8 +298,11 @@ BOOL shouldStop;
     SKNode *touchedNode = [overlay nodeAtPoint:location];
     
     
-    if ([touchedNode.name isEqualToString:@"WalkAnimationButton"]) {
+    if([touchedNode.name isEqualToString:@"WalkAnimationButton"]) {
         [self tap];
+    }
+    else if([touchedNode.name isEqualToString:@"CameraButton"]){
+        [(SCNView *)self.view setAllowsCameraControl:![(SCNView *)self.view allowsCameraControl]];
     }
 }
 
@@ -292,6 +344,20 @@ BOOL shouldStop;
         [self setupHUD];
     }];
     
+}
+
+
+#pragma mark - Vector Maths Helpers
+
++ (SCNVector3) rotateVector3:(SCNVector3)vector aroundAxis:(NSUInteger)axis byAngleInDegrees:(float)angle
+{
+    if(axis == 1){
+        SCNVector3 result = SCNVector3Make(cosf(angle)*vector.x+sinf(angle)*vector.z, vector.y, -sinf(angle)*vector.x+cosf(angle)*vector.z);
+        return result;
+    }
+    else{
+        return SCNVector3Zero;
+    }
 }
 
 
