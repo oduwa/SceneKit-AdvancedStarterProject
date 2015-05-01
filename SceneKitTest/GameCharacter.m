@@ -46,7 +46,7 @@
 {
     int i = 1;
     for(CAAnimation *animation in _walkAnimations){
-        NSString *key = [NSString stringWithFormat:@"CHARACTER_ANIM_%d", i];
+        NSString *key = [NSString stringWithFormat:@"WALK_ANIM_%d", i];
         [gameScene.rootNode addAnimation:animation forKey:key];
         i++;
     }
@@ -55,7 +55,7 @@
 - (void) stopWalkAnimationInScene:(SCNScene *)gameScene
 {
     for(int i = 0; i < [_walkAnimations count]; i++){
-        NSString *key = [NSString stringWithFormat:@"CHARACTER_ANIM_%d", i+1];
+        NSString *key = [NSString stringWithFormat:@"WALK_ANIM_%d", i+1];
         [gameScene.rootNode removeAnimationForKey:key];
     }
 }
@@ -67,7 +67,7 @@
 {
     int i = 1;
     for(CAAnimation *animation in _idleAnimations){
-        NSString *key = [NSString stringWithFormat:@"CHARACTER_ANIM_%d", i];
+        NSString *key = [NSString stringWithFormat:@"IDLE_ANIM_%d", i];
         [gameScene.rootNode addAnimation:animation forKey:key];
         i++;
     }
@@ -76,7 +76,7 @@
 - (void) stopIdleAnimationInScene:(SCNScene *)gameScene
 {
     for(int i = 0; i < [_idleAnimations count]; i++){
-        NSString *key = [NSString stringWithFormat:@"CHARACTER_ANIM_%d", i+1];
+        NSString *key = [NSString stringWithFormat:@"IDLE_ANIM_%d", i+1];
         [gameScene.rootNode removeAnimationForKey:key];
     }
 }

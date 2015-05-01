@@ -54,6 +54,8 @@ BOOL shouldStop;
     // Setup Game Character
     [self setupCharacter];
     character.characterNode.position = SCNVector3Make(0, 0, -250);
+    character.characterNode.rotation = SCNVector4Make(0, 1, 0, M_PI);
+    
     
     // Setup Floor
     [self setupFloor];
@@ -291,7 +293,11 @@ BOOL shouldStop;
         
         /* Increment character position by vector rotated in correct direction */
         character.characterNode.position = SCNVector3Make(character.characterNode.position.x-forwardDirectionVector.x*5, character.characterNode.position.y+forwardDirectionVector.y*5, character.characterNode.position.z-forwardDirectionVector.z*5);
-
+        
+        /* Increment camera position by vector rotated in correct direction so cam follows character */
+        cameraNode.position = SCNVector3Make(cameraNode.position.x-forwardDirectionVector.x*5, cameraNode.position.y+forwardDirectionVector.y*5, cameraNode.position.z-forwardDirectionVector.z*5);
+        
+        character.characterNode.rotation = SCNVector4Make(0, 1, 0, M_PI+movementJoystick.angularVelocity);
     }
     else{
         //[character startIdleAnimationInScene:scene];
