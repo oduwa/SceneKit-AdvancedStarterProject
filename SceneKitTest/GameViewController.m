@@ -26,6 +26,7 @@ BOOL shouldStop;
     Joystick *movementJoystick;
     SKSpriteNode *walkAnimButton;
     SKSpriteNode *cameraButton;
+    SKSpriteNode *wrenchButton;
     
     SCNVector3 forwardDirectionVector;
 }
@@ -59,18 +60,13 @@ BOOL shouldStop;
     
     // Setup Floor
     [self setupFloor];
-
-    // Reset character to idle pose (rather than T-pose)
-    [character startIdleAnimationInScene:scene];
+    
     
     scnView.scene = scene;
     scnView.showsStatistics = YES;
     
     scnView.delegate = self;
     
-    NSLog(@"%f", cosf(90));
-    UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap)];
-    //[scnView addGestureRecognizer:tapGesture];
     
     [self setupHUD];
     
@@ -95,6 +91,7 @@ BOOL shouldStop;
     // Create Character and add to scene
     character = [[GameCharacter alloc] initFromScene:[SCNScene sceneNamed:@"art.scnassets/Kakashi.dae"] withName:@"SpongeBob"];
     //character = [[GameCharacter alloc] initFromScene:[SCNScene sceneNamed:@"Sasuke.dae"] withName:@""];
+    character.environmentScene = scene;
     [scene.rootNode addChildNode:character.characterNode];
     
     // Get Walk Animations
@@ -118,6 +115,9 @@ BOOL shouldStop;
         [animations addObject:animation];
     }
     character.idleAnimations = [NSArray arrayWithArray:animations];
+    
+    // Reset character to idle pose (rather than T-pose)
+    character.actionState = ActionStateIdle;
 }
 
 - (void) setupFloor
@@ -145,7 +145,7 @@ BOOL shouldStop;
     cameraNode = [SCNNode node];
     cameraNode.camera = [SCNCamera camera];
     cameraNode.camera.zFar = 1000;
-    cameraNode.position = SCNVector3Make(0, 100, 0);
+    cameraNode.position = SCNVector3Make(0, 100, 150);//cameraNode.position = SCNVector3Make(0, 100, 0);
     [scene.rootNode addChildNode:cameraNode];
 }
 
@@ -182,7 +182,7 @@ BOOL shouldStop;
     walkAnimButton.size = CGSizeMake(32, 32);
     walkAnimButton.position = CGPointMake(screenSize.width-walkAnimButton.size.width, screenSize.height-walkAnimButton.size.height);
     walkAnimButton.name = @"WalkAnimationButton";
-    [overlay addChild:walkAnimButton];
+    //[overlay addChild:walkAnimButton];
     
     /* Create button for toggling camera control */
     cameraButton = [SKSpriteNode spriteNodeWithImageNamed:@"camera"];
@@ -191,12 +191,20 @@ BOOL shouldStop;
     cameraButton.position = CGPointMake(screenSize.width-walkAnimButton.size.width-15-cameraButton.size.width, screenSize.height-cameraButton.size.height);
     cameraButton.name = @"CameraButton";
     [overlay addChild:cameraButton];
+    
+    /* Create button for toggling render information */
+    wrenchButton = [SKSpriteNode spriteNodeWithImageNamed:@"wrench"];
+    wrenchButton.anchorPoint = CGPointMake(0.5, 0.5);
+    wrenchButton.size = CGSizeMake(32, 32);
+    wrenchButton.position = CGPointMake(screenSize.width-wrenchButton.size.width, screenSize.height-wrenchButton.size.height);
+    wrenchButton.name = @"WrenchButton";
+    [overlay addChild:wrenchButton];
 
     /* Create jostick */
     SKSpriteNode *jsThumb = [SKSpriteNode spriteNodeWithImageNamed:@"joystick"];
     SKSpriteNode *jsBackdrop = [SKSpriteNode spriteNodeWithImageNamed:@"dpad"];
     movementJoystick = [Joystick joystickWithThumb:jsThumb andBackdrop:jsBackdrop];
-    movementJoystick.position = CGPointMake(jsBackdrop.size.width/2, jsBackdrop.size.height/2);
+    movementJoystick.position = CGPointMake(jsBackdrop.size.width/1.5, jsBackdrop.size.height/1.5);
     [overlay addChild:movementJoystick];
     
 }
@@ -262,7 +270,7 @@ BOOL shouldStop;
 {
     if(movementJoystick.velocity.x != 0 || movementJoystick.velocity.y != 0){
         /* Start walk animation */
-        //[character startWalkAnimationInScene:scene];
+        character.actionState = ActionStateWalk;
         
         /* Calculate angle in degrees */
         float angleInDegrees = movementJoystick.angularVelocity*57.3;
@@ -300,7 +308,7 @@ BOOL shouldStop;
         character.characterNode.rotation = SCNVector4Make(0, 1, 0, M_PI+movementJoystick.angularVelocity);
     }
     else{
-        //[character startIdleAnimationInScene:scene];
+        character.actionState = ActionStateIdle;
     }
 }
 
@@ -319,6 +327,9 @@ BOOL shouldStop;
     }
     else if([touchedNode.name isEqualToString:@"CameraButton"]){
         [(SCNView *)self.view setAllowsCameraControl:![(SCNView *)self.view allowsCameraControl]];
+    }
+    else if([touchedNode.name isEqualToString:@"WrenchButton"]){
+        [(SCNView *)self.view setShowsStatistics:![(SCNView *)self.view showsStatistics]];
     }
 }
 
