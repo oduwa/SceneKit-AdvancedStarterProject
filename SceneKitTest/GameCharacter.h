@@ -8,10 +8,22 @@
 
 #import <SceneKit/SceneKit.h>
 
+typedef enum _ActionState {
+    ActionStateNone = 0,
+    ActionStateIdle = 1,
+    ActionStateAttack = 2,
+    ActionStateWalk = 3,
+    ActionStateHurt = 4,
+    ActionStateKnockedOut = 5
+} ActionState;
+
 @interface GameCharacter : NSObject
 
-/** Scene containing character model */
+/** Scene for the Collada file containing the character model */
 @property (nonatomic, strong) SCNScene *scene;
+
+/** Scene for the environment within which the character is */
+@property (nonatomic, strong) SCNScene *environmentScene;
 
 /** Stores a node for the whole character model */
 @property (nonatomic, strong) SCNNode *characterNode;
@@ -25,11 +37,9 @@
 /** Stores all the idle animations associated with the model */
 @property (nonatomic, strong) NSArray *idleAnimations;
 
-/** Stores a node for the character's left leg. Can be nil if character does not have one */
-@property (nonatomic, strong) SCNNode *leftLeg;
+// states
+@property(nonatomic, assign) ActionState actionState;
 
-/** Stores a node for the character's right leg. Can be nil if character does not have one */
-@property (nonatomic, strong) SCNNode *rightLeg;
 
 
 /************************ SETUP ***************************/
@@ -43,24 +53,18 @@
 - (id) initFromScene:(SCNScene *)scene withName:(NSString *)name;
 
 
-/**
- * Initializes left and right leg of character using node names given.
- */
-- (void) setupLimbsWithNameForLeftLeg:(NSString *)leftLegName nameForRightLeg:(NSString *)rightLegName;
-
 
 /**
- * Initiates walk animation where a character's legs are raised and lowered in turn.
+ * Updates the character's ActionState to a new specified state, while also updating
+ * the character animation appropriately.
  *
- * @param stepDuration The amount of time it should take the character to lift (and equally lower) a leg.
+ * @param newState State to be set to the character.
+ * @note The calling Character object's @aenvironmentScene@a property must be set. For this
+ * method to update the character animations, the @aenvironmentScene@a property must be set to the
+ * scene displaying the character (ie whose child nodes include the character nodes).
  */
-- (void) startWalkAnimationUsingLimbsWithStepDuration:(CGFloat) stepDuration;
+- (void) setActionState:(ActionState)newState;
 
-
-/**
- * Stops walk animation. Lowers both of the characters legs together.
- */
-- (void) stopWalkAnimation;
 
 
 /**
@@ -70,6 +74,7 @@
 - (void) startWalkAnimationInScene:(SCNScene *)gameScene;
 
 
+
 /**
  * Stops walk animation for the calling GameCharacter that is within a specified scene.
  * @param An instance of type SCNScene (preferably GameScene) that contains the character.
@@ -77,11 +82,13 @@
 - (void) stopWalkAnimationInScene:(SCNScene *)gameScene;
 
 
+
 /**
  * Starts idle animation for the calling GameCharacter that is within a specified scene.
  * @param An instance of type SCNScene (preferably GameScene) that contains the character.
  */
 - (void) startIdleAnimationInScene:(SCNScene *)gameScene;
+
 
 
 /**
