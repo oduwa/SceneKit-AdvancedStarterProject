@@ -53,6 +53,7 @@ BOOL shouldStop;
     
     // Setup Game Character
     [self setupCharacter];
+    character.characterNode.position = SCNVector3Make(0, 0, -250);
     
     // Setup Floor
     [self setupFloor];
@@ -61,7 +62,6 @@ BOOL shouldStop;
     [character startIdleAnimationInScene:scene];
     
     scnView.scene = scene;
-    scnView.allowsCameraControl = YES;
     scnView.showsStatistics = YES;
     
     scnView.delegate = self;
@@ -143,7 +143,7 @@ BOOL shouldStop;
     cameraNode = [SCNNode node];
     cameraNode.camera = [SCNCamera camera];
     cameraNode.camera.zFar = 1000;
-    cameraNode.position = SCNVector3Make(0, 100, 350);
+    cameraNode.position = SCNVector3Make(0, 100, 0);
     [scene.rootNode addChildNode:cameraNode];
 }
 
@@ -152,7 +152,7 @@ BOOL shouldStop;
     SCNNode *lightNode = [SCNNode node];
     lightNode.light = [SCNLight light];
     lightNode.light.type = SCNLightTypeOmni;
-    lightNode.position = SCNVector3Make(0, 200, 400);
+    lightNode.position = SCNVector3Make(0, 200, -100);
     [scene.rootNode addChildNode:lightNode];
 }
 
@@ -259,6 +259,10 @@ BOOL shouldStop;
     updateAtTime:(NSTimeInterval)time
 {
     if(movementJoystick.velocity.x != 0 || movementJoystick.velocity.y != 0){
+        /* Start walk animation */
+        //[character startWalkAnimationInScene:scene];
+        
+        /* Calculate angle in degrees */
         float angleInDegrees = movementJoystick.angularVelocity*57.3;
         
         /* thumb is in top left region */
@@ -278,13 +282,19 @@ BOOL shouldStop;
             NSLog(@"BR");
         }
         
-        cameraNode.rotation = SCNVector4Make(0, 1, 0, movementJoystick.angularVelocity);
+        //cameraNode.rotation = SCNVector4Make(0, 1, 0, movementJoystick.angularVelocity);
         
-        // Create a vector to move forward in z direction
+        /* Create a vector to move forward in z direction */
         forwardDirectionVector = SCNVector3Make(0, 0, 1);
-        //forwardDirectionVector = forwardDirectionVector.
+        forwardDirectionVector = [GameViewController rotateVector3:forwardDirectionVector aroundAxis:1 byAngleInRadians:movementJoystick.angularVelocity];
+        NSLog(@"[%f: %f, %f, %f]", angleInDegrees, forwardDirectionVector.x, forwardDirectionVector.y, forwardDirectionVector.z);
         
-        //NSLog(@"[%f]", );
+        /* Increment character position by vector rotated in correct direction */
+        character.characterNode.position = SCNVector3Make(character.characterNode.position.x-forwardDirectionVector.x*5, character.characterNode.position.y+forwardDirectionVector.y*5, character.characterNode.position.z-forwardDirectionVector.z*5);
+
+    }
+    else{
+        //[character startIdleAnimationInScene:scene];
     }
 }
 
@@ -349,7 +359,7 @@ BOOL shouldStop;
 
 #pragma mark - Vector Maths Helpers
 
-+ (SCNVector3) rotateVector3:(SCNVector3)vector aroundAxis:(NSUInteger)axis byAngleInDegrees:(float)angle
++ (SCNVector3) rotateVector3:(SCNVector3)vector aroundAxis:(NSUInteger)axis byAngleInRadians:(float)angle
 {
     if(axis == 1){
         SCNVector3 result = SCNVector3Make(cosf(angle)*vector.x+sinf(angle)*vector.z, vector.y, -sinf(angle)*vector.x+cosf(angle)*vector.z);

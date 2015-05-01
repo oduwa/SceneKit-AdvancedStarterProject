@@ -227,14 +227,14 @@
 				4CC270701AEEE17500873BF8 /* art.scnassets */,
 				4CC270721AEEE17500873BF8 /* GameViewController.h */,
 				4CC270731AEEE17500873BF8 /* GameViewController.m */,
-				4CC270751AEEE17500873BF8 /* Main.storyboard */,
-				4CC270781AEEE17500873BF8 /* Images.xcassets */,
-				4CC2707A1AEEE17500873BF8 /* LaunchScreen.xib */,
-				4CC270691AEEE17500873BF8 /* Supporting Files */,
 				4CC270941AEEECB000873BF8 /* GameCharacter.h */,
 				4CC270951AEEECB000873BF8 /* GameCharacter.m */,
 				4CC270971AEEF54E00873BF8 /* GameScene.h */,
 				4CC270981AEEF54E00873BF8 /* GameScene.m */,
+				4CC270751AEEE17500873BF8 /* Main.storyboard */,
+				4CC270781AEEE17500873BF8 /* Images.xcassets */,
+				4CC2707A1AEEE17500873BF8 /* LaunchScreen.xib */,
+				4CC270691AEEE17500873BF8 /* Supporting Files */,
 			);
 			path = SceneKitTest;
 			sourceTree = "<group>";
