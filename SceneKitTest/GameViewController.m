@@ -89,8 +89,8 @@ BOOL shouldStop;
 - (void) setupCharacter
 {
     // Create Character and add to scene
-    character = [[GameCharacter alloc] initFromScene:[SCNScene sceneNamed:@"art.scnassets/Kakashi.dae"] withName:@"SpongeBob"];
-    //character = [[GameCharacter alloc] initFromScene:[SCNScene sceneNamed:@"Sasuke.dae"] withName:@""];
+    //character = [[GameCharacter alloc] initFromScene:[SCNScene sceneNamed:@"art.scnassets/Kakashi.dae"] withName:@"SpongeBob"];
+    character = [[GameCharacter alloc] initFromScene:[SCNScene sceneNamed:@"Shisui.dae"] withName:@""];
     character.environmentScene = scene;
     [scene.rootNode addChildNode:character.characterNode];
     

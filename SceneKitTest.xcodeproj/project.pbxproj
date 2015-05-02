@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		4C27BAF91AF44327000EA710 /* wrench.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C27BAF71AF44327000EA710 /* wrench.png */; };
 		4C27BAFA1AF44327000EA710 /* wrench@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C27BAF81AF44327000EA710 /* wrench@2x.png */; };
+		4C27BB061AF45382000EA710 /* Sasuke.dae in Resources */ = {isa = PBXBuildFile; fileRef = 4C27BAFC1AF45382000EA710 /* Sasuke.dae */; };
+		4C27BB071AF45382000EA710 /* rinnegan.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C27BAFE1AF45382000EA710 /* rinnegan.png */; };
+		4C27BB081AF45382000EA710 /* sasuke_ntxr000.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C27BAFF1AF45382000EA710 /* sasuke_ntxr000.png */; };
+		4C27BB091AF45382000EA710 /* sasuke_ntxr002.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C27BB001AF45382000EA710 /* sasuke_ntxr002.png */; };
 		4C5D9ACE1AF28FB3000A8095 /* bluefreeze_back.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C5D9AC91AF28FB3000A8095 /* bluefreeze_back.jpg */; };
 		4C5D9ACF1AF28FB3000A8095 /* bluefreeze_front.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C5D9ACA1AF28FB3000A8095 /* bluefreeze_front.jpg */; };
 		4C5D9AD01AF28FB3000A8095 /* bluefreeze_left.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 4C5D9ACB1AF28FB3000A8095 /* bluefreeze_left.jpg */; };
@@ -27,10 +31,9 @@
 		4C5D9AEC1AF2E420000A8095 /* Joystick.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C5D9AEB1AF2E420000A8095 /* Joystick.m */; };
 		4C5D9AEF1AF2E5B2000A8095 /* camera.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5D9AED1AF2E5B2000A8095 /* camera.png */; };
 		4C5D9AF01AF2E5B2000A8095 /* camera@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C5D9AEE1AF2E5B2000A8095 /* camera@2x.png */; };
-		4C8739481AF15F8A00316662 /* Sasuke.dae in Resources */ = {isa = PBXBuildFile; fileRef = 4C8739471AF15F8A00316662 /* Sasuke.dae */; };
-		4C87394D1AF15F9200316662 /* ntxr000.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C87394A1AF15F9200316662 /* ntxr000.png */; };
-		4C87394E1AF15F9200316662 /* ntxr002.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C87394B1AF15F9200316662 /* ntxr002.png */; };
-		4C87394F1AF15F9200316662 /* rinnegan.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C87394C1AF15F9200316662 /* rinnegan.png */; };
+		4CA5E17A1AF455D200EF31D7 /* Shisui.dae in Resources */ = {isa = PBXBuildFile; fileRef = 4CA5E1761AF455D200EF31D7 /* Shisui.dae */; };
+		4CA5E17E1AF4562900EF31D7 /* shisui_ntxr004.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CA5E17D1AF4562900EF31D7 /* shisui_ntxr004.png */; };
+		4CA5E1801AF4565500EF31D7 /* shisui_ntxr000.png in Resources */ = {isa = PBXBuildFile; fileRef = 4CA5E17F1AF4565500EF31D7 /* shisui_ntxr000.png */; };
 		4CC2706C1AEEE17500873BF8 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC2706B1AEEE17500873BF8 /* main.m */; };
 		4CC2706F1AEEE17500873BF8 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 4CC2706E1AEEE17500873BF8 /* AppDelegate.m */; };
 		4CC270711AEEE17500873BF8 /* art.scnassets in Resources */ = {isa = PBXBuildFile; fileRef = 4CC270701AEEE17500873BF8 /* art.scnassets */; };
@@ -56,6 +59,10 @@
 /* Begin PBXFileReference section */
 		4C27BAF71AF44327000EA710 /* wrench.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrench.png; sourceTree = "<group>"; };
 		4C27BAF81AF44327000EA710 /* wrench@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wrench@2x.png"; sourceTree = "<group>"; };
+		4C27BAFC1AF45382000EA710 /* Sasuke.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Sasuke.dae; sourceTree = "<group>"; };
+		4C27BAFE1AF45382000EA710 /* rinnegan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = rinnegan.png; sourceTree = "<group>"; };
+		4C27BAFF1AF45382000EA710 /* sasuke_ntxr000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sasuke_ntxr000.png; sourceTree = "<group>"; };
+		4C27BB001AF45382000EA710 /* sasuke_ntxr002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = sasuke_ntxr002.png; sourceTree = "<group>"; };
 		4C5D9AC91AF28FB3000A8095 /* bluefreeze_back.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bluefreeze_back.jpg; sourceTree = "<group>"; };
 		4C5D9ACA1AF28FB3000A8095 /* bluefreeze_front.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bluefreeze_front.jpg; sourceTree = "<group>"; };
 		4C5D9ACB1AF28FB3000A8095 /* bluefreeze_left.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = bluefreeze_left.jpg; sourceTree = "<group>"; };
@@ -75,10 +82,9 @@
 		4C5D9AEB1AF2E420000A8095 /* Joystick.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Joystick.m; sourceTree = "<group>"; };
 		4C5D9AED1AF2E5B2000A8095 /* camera.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = camera.png; sourceTree = "<group>"; };
 		4C5D9AEE1AF2E5B2000A8095 /* camera@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "camera@2x.png"; sourceTree = "<group>"; };
-		4C8739471AF15F8A00316662 /* Sasuke.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; name = Sasuke.dae; path = Resources/Models/Sasuke.dae; sourceTree = "<group>"; };
-		4C87394A1AF15F9200316662 /* ntxr000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ntxr000.png; path = Resources/Models/textures/ntxr000.png; sourceTree = "<group>"; };
-		4C87394B1AF15F9200316662 /* ntxr002.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = ntxr002.png; path = Resources/Models/textures/ntxr002.png; sourceTree = "<group>"; };
-		4C87394C1AF15F9200316662 /* rinnegan.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = rinnegan.png; path = Resources/Models/textures/rinnegan.png; sourceTree = "<group>"; };
+		4CA5E1761AF455D200EF31D7 /* Shisui.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Shisui.dae; sourceTree = "<group>"; };
+		4CA5E17D1AF4562900EF31D7 /* shisui_ntxr004.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shisui_ntxr004.png; sourceTree = "<group>"; };
+		4CA5E17F1AF4565500EF31D7 /* shisui_ntxr000.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = shisui_ntxr000.png; sourceTree = "<group>"; };
 		4CC270661AEEE17500873BF8 /* SceneKitTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SceneKitTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4CC2706A1AEEE17500873BF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4CC2706B1AEEE17500873BF8 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -117,6 +123,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		4C27BAFB1AF45382000EA710 /* Sasuke */ = {
+			isa = PBXGroup;
+			children = (
+				4C27BAFC1AF45382000EA710 /* Sasuke.dae */,
+				4C27BAFD1AF45382000EA710 /* textures */,
+			);
+			name = Sasuke;
+			path = Resources/Models/Sasuke;
+			sourceTree = "<group>";
+		};
+		4C27BAFD1AF45382000EA710 /* textures */ = {
+			isa = PBXGroup;
+			children = (
+				4C27BAFE1AF45382000EA710 /* rinnegan.png */,
+				4C27BAFF1AF45382000EA710 /* sasuke_ntxr000.png */,
+				4C27BB001AF45382000EA710 /* sasuke_ntxr002.png */,
+			);
+			path = textures;
+			sourceTree = "<group>";
+		};
 		4C5D9AC71AF28FB3000A8095 /* Skyboxes */ = {
 			isa = PBXGroup;
 			children = (
@@ -190,21 +216,29 @@
 		4C8739461AF15F5300316662 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				4C8739471AF15F8A00316662 /* Sasuke.dae */,
-				4C87394A1AF15F9200316662 /* ntxr000.png */,
-				4C87394B1AF15F9200316662 /* ntxr002.png */,
-				4C87394C1AF15F9200316662 /* rinnegan.png */,
-				4C8739491AF15F9200316662 /* textures */,
+				4CA5E1751AF455D200EF31D7 /* shisui */,
+				4C27BAFB1AF45382000EA710 /* Sasuke */,
 			);
 			name = Models;
 			sourceTree = "<group>";
 		};
-		4C8739491AF15F9200316662 /* textures */ = {
+		4CA5E1751AF455D200EF31D7 /* shisui */ = {
 			isa = PBXGroup;
 			children = (
+				4CA5E1761AF455D200EF31D7 /* Shisui.dae */,
+				4CA5E1771AF455D200EF31D7 /* textures */,
 			);
-			name = textures;
-			path = Resources/Models/textures;
+			name = shisui;
+			path = Resources/Models/shisui;
+			sourceTree = "<group>";
+		};
+		4CA5E1771AF455D200EF31D7 /* textures */ = {
+			isa = PBXGroup;
+			children = (
+				4CA5E17D1AF4562900EF31D7 /* shisui_ntxr004.png */,
+				4CA5E17F1AF4565500EF31D7 /* shisui_ntxr000.png */,
+			);
+			path = textures;
 			sourceTree = "<group>";
 		};
 		4CC2705D1AEEE17500873BF8 = {
@@ -353,16 +387,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4C87394E1AF15F9200316662 /* ntxr002.png in Resources */,
 				4C5D9AD11AF28FB3000A8095 /* bluefreeze_right.jpg in Resources */,
-				4C87394F1AF15F9200316662 /* rinnegan.png in Resources */,
 				4C5D9ADE1AF29326000A8095 /* sun1_right.bmp in Resources */,
 				4CC2707C1AEEE17500873BF8 /* LaunchScreen.xib in Resources */,
 				4CC270791AEEE17500873BF8 /* Images.xcassets in Resources */,
+				4C27BB081AF45382000EA710 /* sasuke_ntxr000.png in Resources */,
 				4C5D9AE81AF2E3D4000A8095 /* joystick.png in Resources */,
-				4C87394D1AF15F9200316662 /* ntxr000.png in Resources */,
 				4C5D9AD01AF28FB3000A8095 /* bluefreeze_left.jpg in Resources */,
-				4C8739481AF15F8A00316662 /* Sasuke.dae in Resources */,
 				4C5D9ACF1AF28FB3000A8095 /* bluefreeze_front.jpg in Resources */,
 				4C5D9ADF1AF29326000A8095 /* sun1_top.bmp in Resources */,
 				4C5D9AE31AF2D39B000A8095 /* walking.png in Resources */,
@@ -371,13 +402,19 @@
 				4C5D9AE71AF2E3D4000A8095 /* dpad.png in Resources */,
 				4C27BAFA1AF44327000EA710 /* wrench@2x.png in Resources */,
 				4C5D9AE41AF2D39B000A8095 /* walking@2x.png in Resources */,
+				4C27BB061AF45382000EA710 /* Sasuke.dae in Resources */,
+				4CA5E17E1AF4562900EF31D7 /* shisui_ntxr004.png in Resources */,
 				4C5D9ADD1AF29326000A8095 /* sun1_left.bmp in Resources */,
+				4C27BB071AF45382000EA710 /* rinnegan.png in Resources */,
+				4C27BB091AF45382000EA710 /* sasuke_ntxr002.png in Resources */,
+				4CA5E17A1AF455D200EF31D7 /* Shisui.dae in Resources */,
 				4C5D9ADB1AF29326000A8095 /* sun1_bottom.bmp in Resources */,
 				4CC270711AEEE17500873BF8 /* art.scnassets in Resources */,
 				4C27BAF91AF44327000EA710 /* wrench.png in Resources */,
 				4C5D9ADA1AF29326000A8095 /* sun1_back.bmp in Resources */,
 				4C5D9AF01AF2E5B2000A8095 /* camera@2x.png in Resources */,
 				4C5D9AD21AF28FB3000A8095 /* bluefreeze_top.jpg in Resources */,
+				4CA5E1801AF4565500EF31D7 /* shisui_ntxr000.png in Resources */,
 				4C5D9AEF1AF2E5B2000A8095 /* camera.png in Resources */,
 				4CC270771AEEE17500873BF8 /* Main.storyboard in Resources */,
 			);
