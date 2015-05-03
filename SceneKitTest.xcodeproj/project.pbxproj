@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C08678B1AF686C60048B6D0 /* group.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C0867891AF686C60048B6D0 /* group.png */; };
+		4C08678C1AF686C60048B6D0 /* group@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C08678A1AF686C60048B6D0 /* group@2x.png */; };
 		4C27BAF91AF44327000EA710 /* wrench.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C27BAF71AF44327000EA710 /* wrench.png */; };
 		4C27BAFA1AF44327000EA710 /* wrench@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4C27BAF81AF44327000EA710 /* wrench@2x.png */; };
 		4C27BB061AF45382000EA710 /* Sasuke.dae in Resources */ = {isa = PBXBuildFile; fileRef = 4C27BAFC1AF45382000EA710 /* Sasuke.dae */; };
@@ -57,6 +59,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		4C0867891AF686C60048B6D0 /* group.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = group.png; sourceTree = "<group>"; };
+		4C08678A1AF686C60048B6D0 /* group@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "group@2x.png"; sourceTree = "<group>"; };
 		4C27BAF71AF44327000EA710 /* wrench.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = wrench.png; sourceTree = "<group>"; };
 		4C27BAF81AF44327000EA710 /* wrench@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "wrench@2x.png"; sourceTree = "<group>"; };
 		4C27BAFC1AF45382000EA710 /* Sasuke.dae */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml.dae; path = Sasuke.dae; sourceTree = "<group>"; };
@@ -189,6 +193,8 @@
 				4C5D9AEE1AF2E5B2000A8095 /* camera@2x.png */,
 				4C27BAF71AF44327000EA710 /* wrench.png */,
 				4C27BAF81AF44327000EA710 /* wrench@2x.png */,
+				4C0867891AF686C60048B6D0 /* group.png */,
+				4C08678A1AF686C60048B6D0 /* group@2x.png */,
 			);
 			name = Images;
 			path = Resources/Images;
@@ -396,6 +402,7 @@
 				4C5D9AD01AF28FB3000A8095 /* bluefreeze_left.jpg in Resources */,
 				4C5D9ACF1AF28FB3000A8095 /* bluefreeze_front.jpg in Resources */,
 				4C5D9ADF1AF29326000A8095 /* sun1_top.bmp in Resources */,
+				4C08678B1AF686C60048B6D0 /* group.png in Resources */,
 				4C5D9AE31AF2D39B000A8095 /* walking.png in Resources */,
 				4C5D9ACE1AF28FB3000A8095 /* bluefreeze_back.jpg in Resources */,
 				4C5D9ADC1AF29326000A8095 /* sun1_front.bmp in Resources */,
@@ -408,6 +415,7 @@
 				4C27BB071AF45382000EA710 /* rinnegan.png in Resources */,
 				4C27BB091AF45382000EA710 /* sasuke_ntxr002.png in Resources */,
 				4CA5E17A1AF455D200EF31D7 /* Shisui.dae in Resources */,
+				4C08678C1AF686C60048B6D0 /* group@2x.png in Resources */,
 				4C5D9ADB1AF29326000A8095 /* sun1_bottom.bmp in Resources */,
 				4CC270711AEEE17500873BF8 /* art.scnassets in Resources */,
 				4C27BAF91AF44327000EA710 /* wrench.png in Resources */,

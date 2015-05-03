@@ -27,6 +27,10 @@ BOOL shouldStop;
     SKSpriteNode *walkAnimButton;
     SKSpriteNode *cameraButton;
     SKSpriteNode *wrenchButton;
+    SKSpriteNode *characterButton;
+    NSArray *characterPaths;
+    int currentCharacter;
+    
     
     SCNVector3 forwardDirectionVector;
 }
@@ -37,8 +41,11 @@ BOOL shouldStop;
 {
     [super viewDidLoad];
 
+    // iVar setup
     SCNView *scnView = (SCNView *)self.view;
     animations = [NSMutableArray array];
+    characterPaths = @[@"art.scnassets/Kakashi.dae", @"Shisui", @"Sasuke"];
+    currentCharacter = 0;
     
     // Setup Game Scene
     scene = [[GameScene alloc] initWithView:scnView];
@@ -57,24 +64,17 @@ BOOL shouldStop;
     character.characterNode.position = SCNVector3Make(0, 0, -250);
     character.characterNode.rotation = SCNVector4Make(0, 1, 0, M_PI);
     
-    
     // Setup Floor
     [self setupFloor];
     
-    
+    // Setup view
     scnView.scene = scene;
     scnView.showsStatistics = YES;
-    
     scnView.delegate = self;
     
-    
+    // Setup HUD
     [self setupHUD];
     
-//    // retrieve the ship node
-//    SCNNode *ship = [scene.rootNode childNodeWithName:@"ship" recursively:YES];
-//    
-//    // animate the 3d object
-//    [ship runAction:[SCNAction repeatActionForever:[SCNAction rotateByX:0 y:2 z:0 duration:1]]];
 }
 
 - (void)didReceiveMemoryWarning
@@ -89,8 +89,8 @@ BOOL shouldStop;
 - (void) setupCharacter
 {
     // Create Character and add to scene
-    //character = [[GameCharacter alloc] initFromScene:[SCNScene sceneNamed:@"art.scnassets/Kakashi.dae"] withName:@"SpongeBob"];
-    character = [[GameCharacter alloc] initFromScene:[SCNScene sceneNamed:@"Shisui.dae"] withName:@""];
+    character = [[GameCharacter alloc] initFromScene:[SCNScene sceneNamed:@"art.scnassets/Kakashi.dae"] withName:@"SpongeBob"];
+    //character = [[GameCharacter alloc] initFromScene:[SCNScene sceneNamed:@"Shisui.dae"] withName:@""];
     character.environmentScene = scene;
     [scene.rootNode addChildNode:character.characterNode];
     
@@ -199,6 +199,14 @@ BOOL shouldStop;
     wrenchButton.position = CGPointMake(screenSize.width-wrenchButton.size.width, screenSize.height-wrenchButton.size.height);
     wrenchButton.name = @"WrenchButton";
     [overlay addChild:wrenchButton];
+    
+    /* Create button for toggling character */
+    characterButton = [SKSpriteNode spriteNodeWithImageNamed:@"group"];
+    characterButton.anchorPoint = CGPointMake(0.5, 0.5);
+    characterButton.size = CGSizeMake(32, 32);
+    characterButton.position = CGPointMake(screenSize.width-characterButton.size.width-15-wrenchButton.size.width-cameraButton.size.width-15, screenSize.height-cameraButton.size.height);
+    characterButton.name = @"CharacterButton";
+    [overlay addChild:characterButton];
 
     /* Create jostick */
     SKSpriteNode *jsThumb = [SKSpriteNode spriteNodeWithImageNamed:@"joystick"];
@@ -207,6 +215,48 @@ BOOL shouldStop;
     movementJoystick.position = CGPointMake(jsBackdrop.size.width/1.5, jsBackdrop.size.height/1.5);
     [overlay addChild:movementJoystick];
     
+}
+
+- (void) setCharacterFromModelWithName:(NSString *)name
+{
+    // Remove current character from scene
+    SCNVector3 position = character.characterNode.position;
+    SCNVector4 rotation = character.characterNode.rotation;
+    [character.characterNode removeFromParentNode];
+    
+    // Create Character and add to scene
+    character = [[GameCharacter alloc] initFromScene:[SCNScene sceneNamed:name] withName:@""];
+    character.environmentScene = scene;
+    [scene.rootNode addChildNode:character.characterNode];
+    
+    // Get Walk Animations
+    NSURL *url = [[NSBundle mainBundle] URLForResource:@"art.scnassets/Kakashi(walking)" withExtension:@"dae"];
+    SCNSceneSource *sceneSource = [SCNSceneSource sceneSourceWithURL:url options:@{SCNSceneSourceAnimationImportPolicyKey:SCNSceneSourceAnimationImportPolicyPlayRepeatedly} ];
+    NSArray *animationIds = [sceneSource identifiersOfEntriesWithClass:[CAAnimation class]];
+    for(NSString *eachId in animationIds){
+        CAAnimation *animation = [sceneSource entryWithIdentifier:eachId withClass:[CAAnimation class]];
+        [animations addObject:animation];
+    }
+    character.walkAnimations = [NSArray arrayWithArray:animations];
+    
+    
+    // Get Idle Animations
+    animations = [NSMutableArray array];
+    NSURL *url2 = [[NSBundle mainBundle] URLForResource:@"art.scnassets/Kakashi(idle)" withExtension:@"dae"];
+    SCNSceneSource *sceneSource2 = [SCNSceneSource sceneSourceWithURL:url2 options:@{SCNSceneSourceAnimationImportPolicyKey:SCNSceneSourceAnimationImportPolicyPlayRepeatedly} ];
+    NSArray *animationIds2 = [sceneSource2 identifiersOfEntriesWithClass:[CAAnimation class]];
+    for(NSString *eachId in animationIds2){
+        CAAnimation *animation = [sceneSource2 entryWithIdentifier:eachId withClass:[CAAnimation class]];
+        [animations addObject:animation];
+    }
+    character.idleAnimations = [NSArray arrayWithArray:animations];
+    
+    // Reset character to idle pose (rather than T-pose)
+    character.actionState = ActionStateIdle;
+    [character startIdleAnimationInScene:character.environmentScene];
+    
+    character.characterNode.position = position;
+    character.characterNode.rotation = rotation;
 }
 
 
@@ -330,6 +380,15 @@ BOOL shouldStop;
     }
     else if([touchedNode.name isEqualToString:@"WrenchButton"]){
         [(SCNView *)self.view setShowsStatistics:![(SCNView *)self.view showsStatistics]];
+    }
+    else if([touchedNode.name isEqualToString:@"CharacterButton"]){
+        if(currentCharacter < [characterPaths count]-1){
+            currentCharacter++;
+        }
+        else{
+            currentCharacter = 0;
+        }
+        [self setCharacterFromModelWithName:characterPaths[currentCharacter]];
     }
 }
 
